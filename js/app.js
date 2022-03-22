@@ -47,8 +47,10 @@ let imgOne = document.getElementById('img1');
 let imgTwo = document.getElementById('img2');
 let imgThree = document.getElementById('img3');
 
-let button = document.getElementById('buttonList');
-let list = document.getElementById('list');
+let ctx = document.getElementById('myChart').getContext('2d');
+
+// let button = document.getElementById('buttonList');
+// let list = document.getElementById('list');
 
 /******************************       Constructor Function        ***************************/
 function Product(name, fileExtension = 'jpg') {
@@ -87,21 +89,33 @@ function randomProduct() {
     return Math.floor(Math.random() * productArray.length);
 }
 
+///////// Unique rounds /////////
+let uniqueProducts = [];
+
 ///////// Render images /////////
 function renderImages() {
-    let r1 = randomProduct();
-    let r2 = randomProduct();
-    let r3 = randomProduct();
 
-    for (let i = 0; i < 6; i++) {
-        if (r1 === r2) {
-            r2 = randomProduct();
-        } else if (r1 === r3) {
-            r3 = randomProduct();
-        } else if (r2 === r3) {
-            r3 = randomProduct();
-        }
+// Unique rounds loop
+    while (uniqueProducts.length < 6) {
+        let rando = randomProduct();
+        if(!uniqueProducts.includes(rando)) {
+            uniqueProducts.push(rando);
+        } 
     }
+
+    let r1 = uniqueProducts.shift();
+    let r2 = uniqueProducts.shift();
+    let r3 = uniqueProducts.shift();
+
+    // for (let i = 0; i < 6; i++) {
+    //     if (r1 === r2) {
+    //         r2 = randomProduct();
+    //     } else if (r1 === r3) {
+    //         r3 = randomProduct();
+    //     } else if (r2 === r3) {
+    //         r3 = randomProduct();
+    //     }
+    // }
 
     imgOne.src = productArray[r1].image;
     imgOne.alt = productArray[r1].name;
@@ -115,7 +129,63 @@ function renderImages() {
     imgThree.alt = productArray[r3].name;
     productArray[r3].views++;
 
+    console.log(uniqueProducts);
+
 } renderImages();
+    
+/******************************       Graph Render Fx       *********************************/
+function renderGraph() {
+
+///////// Array for muh graphs /////////
+let productNames = [];
+let productClicks = [];
+let productViews = [];
+
+///////// For loop for above empty arrays to push data into graph /////////
+for (let i = 0; i < productArray.length; i++) {
+    productNames.push(productArray[i].name);
+    productClicks.push(productArray[i].clicks);
+    productViews.push(productArray[i].views);
+}
+
+///////// THE HOLY GRAPH /////////
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: productNames,
+        datasets: [{
+            label: 'Number of clicks',
+            data: productClicks,
+            backgroundColor: [
+                'rgba(255, 60, 0, 0.5)'
+            ],
+            borderColor: [
+                'rgba(255, 60, 0, 1)'
+            ],
+            borderWidth: 3
+        },
+        {
+            label: 'Number of views',
+            data: productViews,
+            backgroundColor: [
+                'rgba(112, 12, 69, 0.5)'
+            ],
+            borderColor: [
+                'rgba(112, 12, 69, 1)'
+            ],
+            borderWidth: 3
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    } 
+});
+} 
+
 /******************************       Event Handlers       **********************************/
 ///////// Adds clicks and calls render /////////
 function clickyClick(event) {
@@ -129,24 +199,25 @@ function clickyClick(event) {
     rounds--;
     if (rounds === 0) {
         container.removeEventListener('click', clickyClick);
+        renderGraph()
         return;
     }
     renderImages();
 }
 
 ////////// Adds list items /////////
-function showList() {
-    if (rounds === 0) {
-        for (let i = 0; i < productArray.length; i++) {
-            let li = document.createElement('li');
+// function showList() {
+//     if (rounds === 0) {
+//         for (let i = 0; i < productArray.length; i++) {
+//             let li = document.createElement('li');
 
-            li.innerText = `${productArray[i].name} was viewed ${productArray[i].views} times and clicked ${productArray[i].clicks} times`;
-            list.appendChild(li);
-        }
-    }
-}
+//             li.innerText = `${productArray[i].name} was viewed ${productArray[i].views} times and clicked ${productArray[i].clicks} times`;
+//             list.appendChild(li);
+//         }
+//     }
+// }
 /******************************       Event Listeners       *********************************/
 container.addEventListener('click', clickyClick);
-button.addEventListener('click', showList);
+// button.addEventListener('click', showList);
 
-console.table(productArray);
+// console.table(productArray);
