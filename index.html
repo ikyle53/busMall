@@ -22,8 +22,8 @@
         <article>
             <h1>Product overview</h1>
                 <p>Please choose from the three items provided. Choose which items you would choose over the others.
-                Please use the 'View Results' at the bottom when you can't choose anymore products. A list of products
-                will be give to you with which items you thought were most popular. Most of all, enjoy!
+                After 25 consecutive rounds of choosing you'll be given stats on how many time each product was viewed
+                and clicked. Enjoy!
                 </p>
         </article>
         <section id="container">
@@ -40,15 +40,18 @@
         </section>
         
         <section id="buttonList">
-            <h2>View Results</h2>
+            <!-- <h2>View Results</h2>
             <ul id="list">
-            </ul>
+            </ul> -->
+            <canvas id="myChart"></canvas>
         </section>
     </main>
+
     <footer>
 
     </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
