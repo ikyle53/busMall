@@ -49,8 +49,13 @@ let imgThree = document.getElementById('img3');
 
 let ctx = document.getElementById('myChart').getContext('2d');
 
-// let button = document.getElementById('buttonList');
-// let list = document.getElementById('list');
+/******************************       Get local storage       *******************************/
+
+let storedProducts = localStorage.getItem('product');
+let parsedProducts = JSON.parse(storedProducts);
+
+// console.log(storedProducts);
+// console.log(parsedProducts);
 
 /******************************       Constructor Function        ***************************/
 function Product(name, fileExtension = 'jpg') {
@@ -63,6 +68,12 @@ function Product(name, fileExtension = 'jpg') {
 }
 
 /////// Objects /////////
+
+/////// If'n it's storedProducts /////////
+
+if (storedProducts) {
+    productArray = parsedProducts;
+} else {
 new Product('bag');
 new Product('banana');
 new Product('bathroom');
@@ -82,6 +93,7 @@ new Product('tauntaun');
 new Product('unicorn');
 new Product('water-can');
 new Product('wine-glass');
+}
 
 /******************************       Helper Functions       ********************************/
 ///////// Random Numberizer /////////
@@ -200,24 +212,16 @@ function clickyClick(event) {
     if (rounds === 0) {
         container.removeEventListener('click', clickyClick);
         renderGraph()
+
+    /**********       Step 1: Local Storage hath begun      **********/
+        let stringyThingy = JSON.stringify(productArray);
+        localStorage.setItem('product', stringyThingy);
+        // console.log('JSON.stringified', stringyThingy);
+
         return;
     }
     renderImages();
 }
 
-////////// Adds list items /////////
-// function showList() {
-//     if (rounds === 0) {
-//         for (let i = 0; i < productArray.length; i++) {
-//             let li = document.createElement('li');
-
-//             li.innerText = `${productArray[i].name} was viewed ${productArray[i].views} times and clicked ${productArray[i].clicks} times`;
-//             list.appendChild(li);
-//         }
-//     }
-// }
 /******************************       Event Listeners       *********************************/
 container.addEventListener('click', clickyClick);
-// button.addEventListener('click', showList);
-
-// console.table(productArray);
