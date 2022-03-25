@@ -1,8 +1,9 @@
-# busMall
-## Lab - 07
+# Bus Mall
 ### About-site
-**Site Instructions:**  
 
+This site is testament to my understanding of local storage and creating a simple algorithm that gives the user unique choices as they choose images each round while also tracking the views and clicks.
+
+## Problem Domain
 As a user, I would like to display three unique products by chance so that the viewers can pick a favorite.
 
 Create a constructor function that creates an object associated with each product, and has the following properties:
@@ -33,13 +34,16 @@ Add a button with the text View Results, which when clicked displays the list of
 
 NOTE: Displayed product names should match the file name for the product. Example: the product represented with dog-duck.jpg should be displayed to the user as exactly “dog-duck” when the results are shown.
 
-Stretch Goals
-Handle the display and voting for an arbitrary number of images
-Using a variable, declare in your JS how many images to show.
-Based on that value, dynamically create that many <img> tags
-Also based on that value, ensure that your randomizer is properly handling the specified number of images for display and repeat tracking.
 
-## Author: Kyle Honaker
+
 ## Links and Resources
+[Stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)  
 
-## Reflections &&|| Comments
+[Local Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)  
+
+[Grid](https://www.w3schools.com/css/css_grid.asp)
+
+### Reflections &&|| Comments
+- Learning local storage wasn't as bad as I thought it would be. It's convoluted in the readings, but easier in the execution. 
+
+### Author: Kyle Honaker
